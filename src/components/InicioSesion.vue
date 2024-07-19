@@ -65,7 +65,8 @@ export default {
                 nombre: '',
                 pass: '',
 
-            }
+            },
+            token: '',
 
         }
 
@@ -99,13 +100,13 @@ export default {
                 })
                 .then(data => {
 
+                    console.log(data);
+                    this.token = data.token;
+                    localStorage.setItem('token', this.token)
+
                     if (data.valido === true){
 
                         this.$router.push('/menu');
-
-                    } else {
-
-                        console.log('Usuario o contraseña incorrectos');
 
                     }
 

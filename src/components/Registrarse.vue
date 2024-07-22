@@ -1,10 +1,10 @@
 <template>
 
-<div class="container-fluid vh-100">
+<div class="container-fluid vh-100 bg-image">
 
     <div class="row h-100 justify-content-center align-items-center">
 
-        <div class="col-md-12 text-center">
+        <div class="col-md-4 text-center">
 
             <h2>Registro</h2>
 
@@ -34,13 +34,15 @@
 
                 <div>
 
-                    <button @click="regUsu" class="mt-2 btn btn-primary">Registrarse</button>
+                    <button @click="regUsu" class="mt-3 btn btn-primary">Registrarse</button>
 
                 </div>
 
             </form>
 
         </div>
+
+        <router-link to="/">Volver</router-link>
 
     </div>
 
@@ -128,6 +130,29 @@ h2 {
 
     font-size: 40px;
     background-color: #0d6efd;
+    border-radius: 10px;
+
+}
+
+.container-fluid {
+
+    background-color:lightgray;
+
+}
+
+.card {
+
+    border-radius: 8px;
+    padding: 20px;
+
+}
+
+.bg-image {
+
+    background-image: url('/logo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 

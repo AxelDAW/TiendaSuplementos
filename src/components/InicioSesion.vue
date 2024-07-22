@@ -1,10 +1,10 @@
 <template>
 
-    <div class="container-fluid vh-100">
+    <div class="container-fluid vh-100 bg-image">
 
         <div class="row h-100 justify-content-center align-items-center">
 
-            <div class="col-md-12 text-center">
+            <div class="col-md-4 text-center">
 
                 <h2>Iniciar sesión</h2>
 
@@ -34,13 +34,19 @@
 
                     <div>
 
-                        <button @click="iniSesion" class="mt-2 btn btn-primary">Continuar</button>
+                        <button @click="iniSesion" class="mt-3 btn btn-primary mb-2" style="color: black;">Continuar</button>
+
+                    </div>
+
+                    <div v-if="errorUsu" class="alert alert-danger mt-2">
+
+                        {{ errorUsu }}
 
                     </div>
 
                 </form>
             
-                <span>¿Todavía no tienes cuenta? <router-link to="/registro">Crea una.</router-link></span>
+                <span> ¿Todavía no tienes cuenta? <router-link to="/registro" style="color: black;">Crea una.</router-link></span>
 
             </div>
 
@@ -67,6 +73,7 @@ export default {
 
             },
             token: '',
+            errorUsu: '',
 
         }
 
@@ -108,6 +115,10 @@ export default {
 
                         this.$router.push('/menu');
 
+                    } else {
+
+                        this.errorUsu = 'Usuario o contraseña incorrectos.';
+
                     }
 
                 })
@@ -131,6 +142,31 @@ h2 {
 
     font-size: 40px;
     background-color: #0d6efd;
+    border-radius: 10px;
+
+}
+
+span {
+
+font-size: 18px;
+background-color: #0d6efd;
+border-radius: 5px;
+
+}
+
+.card {
+
+    border-radius: 8px;
+    padding: 20px;
+
+}
+
+.bg-image {
+
+    background-image: url('/logo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 

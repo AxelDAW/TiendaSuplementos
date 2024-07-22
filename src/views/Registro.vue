@@ -6,12 +6,6 @@
 
     </div>
 
-    <div>
-
-        <router-link to="/">Volver</router-link>
-
-    </div>
-
 </template>
 
 <script>

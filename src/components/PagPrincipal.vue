@@ -1,73 +1,6 @@
 <template>
-
-    <header>
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-            <div class="container-fluid">
-
-                <a class="navbar-brand" href="/menu"><img src="/logo.jpg" style="width: 60px; height: 60px;"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-
-                    <span class="navbar-toggler-icon"></span>
-
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarScroll">
-
-                    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                        
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Nutrición</a>
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-
-                                <li><a class="dropdown-item" href="#">Proteínas</a></li>
-                                <li><a class="dropdown-item" href="#">Creatina</a></li>
-                                <li><a class="dropdown-item" href="#">Carbohidratos</a></li>
-
-                            </ul>
-
-                        </li>
-
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Accesorios</a>
-
-                            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-
-                                <li><a class="dropdown-item" href="#">Mochilas</a></li>
-                                <li><a class="dropdown-item" href="#">Mezcladores</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Entrenamiento</a></li>
-
-                            </ul>
-
-                        </li>
-
-                    </ul>
-
-                    <form class="d-flex">
-
-                        <input class="form-control me-2" type="search" placeholder="Escribe aquí..." aria-label="Search">
-                        <button class="btn btn-outline-primary" type="submit">Buscar</button>
-
-                    </form>
-
-                    <div class="ms-3">
-
-                        <a href="/menu/perfil"><i class="bi bi-person-circle" style="font-size: 2em;"></i></a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </nav>
-
-    </header>
+    <div>
+    <NavBar @filtrar="aplicarFiltro"/>
 
     <section>
 
@@ -75,7 +8,7 @@
 
             <div class="row">
 
-                <div v-for="(producto, index) in productos" :key="producto.id" class="col-md-4 mb-4">
+                <div v-for="(producto, index) in productosFiltrados" :key="producto.id" class="col-md-4 mb-4">
 
                     <div class="card">
 
@@ -100,21 +33,27 @@
         </div>
 
     </section>
+</div>
 
 </template>
 
 <script>
 
+import NavBar from '../components/NavBar.vue'
+
 export default {
 
     name: 'PagPrincipal',
+
+    components: { NavBar },
 
     data(){
 
         return {
 
             productos: [],
-            images: ['/prote.jpg', '/creatina.jpg', '/dextrosa.jpg', '/bolsa.jpg', '/shaker.jpg', '/correas.jpg']
+            images: ['/prote.jpg', '/creatina.jpg', '/dextrosa.jpg', '/bolsa.jpg', '/shaker.jpg', '/correas.jpg'],
+            productosFiltrados: [],
 
         }
 
@@ -139,7 +78,7 @@ export default {
                 .then(data => {
 
                     this.productos = data;
-                    console.log(this.productos)
+                    this.productosFiltrados = data;
 
                 })
                 .catch( e => {
@@ -147,6 +86,16 @@ export default {
                     console.error('Error en la solicitud fetch.', e)
 
                 })
+
+        },
+
+        aplicarFiltro(texto){
+
+            this.productosFiltrados = this.productos.filter(producto => 
+
+                producto.nombre.toLowerCase().includes(texto.toLowerCase())
+
+            )
 
         }
 

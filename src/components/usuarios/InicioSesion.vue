@@ -109,7 +109,9 @@ export default {
 
                     console.log(data);
                     this.token = data.token;
-                    localStorage.setItem('token', this.token)
+                    let id = data.id;
+                    localStorage.setItem('token', this.token);
+                    localStorage.setItem('id', id);
 
                     if (data.valido === true){
 
@@ -129,6 +131,13 @@ export default {
                 })
 
         }
+
+    },
+
+    mounted(){
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('id');
 
     }
 

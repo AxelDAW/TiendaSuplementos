@@ -10,7 +10,7 @@
 
 <script>
 
-import Registrarse from '../components/Registrarse.vue'
+import Registrarse from '../components/usuarios/Registrarse.vue'
 
 export default {
 

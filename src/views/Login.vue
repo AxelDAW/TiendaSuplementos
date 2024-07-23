@@ -6,7 +6,7 @@
 
 <script>
 
-import InicioSesion from '../components/InicioSesion.vue'
+import InicioSesion from '../components/usuarios/InicioSesion.vue'
 
 export default {
 

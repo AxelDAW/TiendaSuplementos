@@ -6,7 +6,7 @@
 
 <script>
 
-import PerfilMenu from '../components/PerfilMenu.vue'
+import PerfilMenu from '../components/usuarios/PerfilMenu.vue'
 
 export default {
 

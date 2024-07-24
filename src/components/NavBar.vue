@@ -23,9 +23,9 @@
 
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 
-                        <li><a class="dropdown-item" href="/menu/proteinas">Proteínas</a></li>
-                        <li><a class="dropdown-item" href="/menu/creatinas">Creatina</a></li>
-                        <li><a class="dropdown-item" href="/menu/carbos">Carbohidratos</a></li>
+                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[0]">Proteínas</router-link></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[1]">Creatina</a></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[2]">Carbohidratos</a></li>
 
                     </ul>
 
@@ -37,10 +37,10 @@
 
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 
-                        <li><a class="dropdown-item" href="/menu/mochilas">Mochilas</a></li>
-                        <li><a class="dropdown-item" href="/menu/shakers">Mezcladores</a></li>
+                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[3]">Mochilas</router-link></li>
+                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[4]">Mezcladores</router-link></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="/menu/accs">Entrenamiento</a></li>
+                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[5]">Entrenamiento</router-link></li>
 
                     </ul>
 
@@ -82,6 +82,7 @@ export default {
         return {
 
             textofiltrado: '',
+            categorias: []
 
         }
 
@@ -93,7 +94,42 @@ export default {
 
             this.$emit('filtrar', this.textofiltrado)
 
-        }
+        },
+
+        cargarCategorias(){
+
+            fetch('http://localhost:3000/menu')
+                .then(response => {
+
+                    if (!response.ok) {
+
+                        throw new Error('Error en el servidor.');
+
+                    }
+
+                    return response.json();
+
+                })
+                .then(data => {
+
+                    let xd = [...new Set(data.map(prod => prod.categoria))]
+
+                    this.categorias = xd;
+
+                })
+                .catch( e => {
+
+                    console.error('Error en la solicitud fetch.', e)
+
+                })
+
+        },        
+
+    },
+
+    mounted(){
+
+        this.cargarCategorias()
 
     }
 

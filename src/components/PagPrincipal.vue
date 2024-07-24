@@ -8,15 +8,15 @@
 
             <div class="row">
 
-                <div v-for="(producto, index) in productosFiltrados" :key="producto.id" class="col-md-4 mb-4">
+                <div v-for="producto in productosFiltrados" :key="producto.id" class="col-md-4 mb-4">
 
                     <div class="card">
 
-                        <img :src="images[index]" class="card-img-top" alt="Producto">
+                        <img :src="producto.imagen + '.jpg'" class="card-img-top" alt="Producto">
 
                         <div class="card-body">
 
-                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <h5 class="card-title"><router-link :to="'/menu/producto/' + producto.id">{{ producto.nombre }}</router-link></h5>
                             <p class="card-text">{{ producto.descripcion }}</p>
                             <p class="card-text"><strong>Precio:</strong> {{ producto.precio.toFixed(2) }} €</p>
                             <p v-if="producto.disponibilidad" class="text-success">Disponible</p>
@@ -33,6 +33,7 @@
         </div>
 
     </section>
+
 </div>
 
 </template>
@@ -52,8 +53,9 @@ export default {
         return {
 
             productos: [],
-            images: ['/prote.jpg', '/creatina.jpg', '/dextrosa.jpg', '/bolsa.jpg', '/shaker.jpg', '/correas.jpg'],
             productosFiltrados: [],
+            categoria: [],
+            categorias: [],
 
         }
 
@@ -79,6 +81,11 @@ export default {
 
                     this.productos = data;
                     this.productosFiltrados = data;
+                    this.categoria = data.categoria;
+
+                    let xd = [...new Set(data.map(prod => prod.categoria))]
+
+                    this.categorias = xd;
 
                 })
                 .catch( e => {

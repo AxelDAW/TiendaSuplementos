@@ -41,6 +41,12 @@
 
               </li>
 
+              <li class="nav-item" v-if="datos.rol == 1">
+
+                <a class="nav-link" href="#add-products">Añadir Productos.</a>
+
+              </li>
+
               <li class="nav-item">
                 
                 <a class="nav-link" href="#" @click="logout">Cerrar Sesión</a>
@@ -62,6 +68,8 @@
             <p><strong>Nombre:</strong> {{ datos.nombre }}</p>
             
           </div>
+
+          <hr>
   
           <div id="change-password" class="mt-3">
 
@@ -83,11 +91,14 @@
               </div>
 
               <p v-if="error" class="text-danger">Las contraseñas no coinciden.</p>
+              <p v-if="check" class="text-success">Contraseña actualizada.</p>
               <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
 
             </form>
 
           </div>
+
+          <hr>
   
           <div id="delete-account" class="mt-3">
 
@@ -96,17 +107,29 @@
             <button class="btn btn-danger" @click="borrarCuenta">Eliminar Cuenta</button>
 
           </div>
+
+          <hr>
   
           <div id="order-history" class="mt-3">
 
             <h2>Historial de Compras</h2>
             
           </div>
+
+          <hr>
   
           <div id="cart" class="mt-3">
 
             <h2>Ver Carrito</h2>
             
+          </div>
+
+          <hr>
+
+          <div id="add-products" class="mt-3" v-if="datos.rol == 1">
+
+            <NewProduct/>
+
           </div>
 
           <div>
@@ -125,9 +148,13 @@
   
 <script>
 
+import NewProduct from '../productos/NewProduct.vue';
+
 export default {
 
     name: 'PerfilMenu',
+
+    components: { NewProduct },
   
     data() {
 
@@ -153,6 +180,7 @@ export default {
             },
 
             error: false,
+            check: false,
 
         }
 
@@ -174,9 +202,10 @@ export default {
               return response.json();
 
             })
-            .then(data => {
+            .then(data => { 
 
               if (data && data.length > 0) {this.datos = data[0]}
+              console.log(data)
 
             })
             .catch(e => {
@@ -198,42 +227,47 @@ export default {
           if (this.newPass != this.newPassrep){
 
             this.error = true;
+            return ;
 
-          }
-          
-          this.newPassword.contraseña = this.newPassrep;
-          
-          return fetch('http://localhost:3000/perfil/changePass', {
+          } else {
 
-            method: 'POST',
-            headers: {
+            this.check = true;
+
+            this.newPassword.contraseña = this.newPassrep;
+
+            return fetch('http://localhost:3000/perfil/changePass', {
+
+              method: 'POST',
+              headers: {
 
               'Content-Type': 'application/json'
 
-            },
-            body: JSON.stringify( this.newPassword)
+              },
+              body: JSON.stringify( this.newPassword)
 
-          })
-          .then(response => {
+              })
+              .then(response => {
 
-            if (response.ok){
+                if (response.ok){
 
-              return response.json();
+                  return response.json();
 
-            }
+                }
 
-          })
-          .then(data => {
+              })
+              .then(data => {
 
-            console.log(data);
+                console.log(data);
 
-          })
-          .catch(e => {
+              })
+              .catch(e => {
 
-            console.error('Error en el fetch.', e)
+                console.error('Error en el fetch.', e)
 
-          })
+              })
 
+          }
+      
         },
   
         borrarCuenta() {

@@ -10,13 +10,19 @@
 
                 <div v-for="producto in productosFiltrados" :key="producto.id" class="col-md-4 mb-4">
 
-                    <div class="card">
+                    <div class="card" :class="{ 'opacity-50': !producto.disponibilidad}">
 
                         <img :src="producto.imagen + '.jpg'" class="card-img-top" alt="Producto">
 
                         <div class="card-body">
 
-                            <h5 class="card-title"><router-link :to="'/menu/producto/' + producto.id">{{ producto.nombre }}</router-link></h5>
+                            <h5 class="card-title"><router-link v-if="producto.disponibilidad" :to="'/menu/producto/' + producto.id">
+
+                                {{ producto.nombre }}</router-link>
+
+                                <span v-else class="disabled-link">{{ producto.nombre }}</span>
+                            
+                            </h5>
                             <p class="card-text">{{ producto.descripcion }}</p>
                             <p class="card-text"><strong>Precio:</strong> {{ producto.precio.toFixed(2) }} €</p>
                             <p v-if="producto.disponibilidad" class="text-success">Disponible</p>
@@ -117,3 +123,22 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.opacity-50 {
+
+    opacity: 0.5;
+
+}
+
+.disabled.link {
+
+    pointer-events: none;
+    cursor: default;
+    color: inherit;
+    text-decoration: none;
+
+}
+
+</style>

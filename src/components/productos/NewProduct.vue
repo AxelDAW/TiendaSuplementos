@@ -2,7 +2,9 @@
 
 <div id="add-products" class="mt-3">
 
-    <h2>Añadir Productos</h2>
+    <h2 @click="actuForm" class="cursor-pointer">Añadir Productos</h2>
+
+    <div v-if="mostrarForm">
 
     <form @submit.prevent="subirProd">
 
@@ -68,6 +70,8 @@
 
   </div>
 
+  </div>
+
 </template>
 
 <script>
@@ -89,7 +93,9 @@ export default {
                 categoria: 0,
                 imagen: '',
 
-            }
+            },
+
+            mostrarForm: false,
 
         }
 
@@ -132,6 +138,12 @@ export default {
 
             })
 
+        },
+
+        actuForm(){
+
+          this.mostrarForm = !this.mostrarForm;
+
         }
 
     }
@@ -139,3 +151,13 @@ export default {
 }
 
 </script>
+
+<style scoped>
+
+.cursor-pointer {
+
+  cursor: pointer;
+
+}
+
+</style>

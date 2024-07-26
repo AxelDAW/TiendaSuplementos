@@ -20,8 +20,6 @@
 
         </div>
 
-        <router-link to="/menu">Volver atrás</router-link>
-
     </div>
 
 </template>

@@ -23,8 +23,8 @@
 
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 
-                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[0]">Proteínas</router-link></li>
-                        <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[1]">Creatina</a></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[0]">Proteinas</a></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[1]">Creatinas</a></li>
                         <li><a class="dropdown-item" :href="'/menu/categorias/'+ categorias[2]">Carbohidratos</a></li>
 
                     </ul>
@@ -37,10 +37,10 @@
 
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
 
-                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[3]">Mochilas</router-link></li>
-                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[4]">Mezcladores</router-link></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/' + categorias[3]">Mochilas</a></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/' + categorias[4]">Mezcladores</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><router-link class="dropdown-item" :to="'/menu/categorias/' + categorias[5]">Entrenamiento</router-link></li>
+                        <li><a class="dropdown-item" :href="'/menu/categorias/' + categorias[5]">Entrenamiento</a></li>
 
                     </ul>
 
@@ -115,6 +115,7 @@ export default {
                     let xd = [...new Set(data.map(prod => prod.categoria))]
 
                     this.categorias = xd;
+                    this.$emit('categorias', this.categorias);
 
                 })
                 .catch( e => {

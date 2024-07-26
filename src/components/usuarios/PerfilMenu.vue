@@ -47,6 +47,12 @@
 
               </li>
 
+              <li class="nav-item" v-if="datos.rol == 1">
+
+                <a class="nav-link" href="#mod-products">Modificar Productos</a>
+
+              </li>
+
               <li class="nav-item">
                 
                 <a class="nav-link" href="#" @click="logout">Cerrar Sesión</a>
@@ -132,6 +138,16 @@
 
           </div>
 
+          <hr v-if="datos.rol == 1">
+
+          <div id="mod-products" class="mt-3" v-if="datos.rol == 1">
+
+            <ModProduct/>
+
+          </div>
+          
+          <hr v-if="datos.rol == 1">
+
           <div>
 
             <router-link to="/menu">Volver atrás</router-link>
@@ -148,13 +164,14 @@
   
 <script>
 
+import ModProduct from '../productos/ModProduct.vue';
 import NewProduct from '../productos/NewProduct.vue';
 
 export default {
 
     name: 'PerfilMenu',
 
-    components: { NewProduct },
+    components: { NewProduct, ModProduct },
   
     data() {
 
